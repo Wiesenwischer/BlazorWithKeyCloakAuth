@@ -1,0 +1,19 @@
+version: '3.4'
+
+services: 
+  identityaccess:
+    image: quay.io/keycloak/keycloak:16.1.0
+    ports:
+      - "8080:8080"
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=P@ssw0rd
+    volumes:
+      - keycloak-data:/opt/jboss/keycloak/standalone/data/
+      - keycloak-conf:/opt/jboss/keycloak/standalone/configuration/
+
+volumes:
+  keycloak-data:
+  keycloak-conf:
+
+

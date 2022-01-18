@@ -5,7 +5,7 @@ on:
   push:
     branches:
     - main
-    - features/ci-builds
+    - features/ci-build
     paths:
     - src/IdentityAccess/**
     - .github/workflows/identityaccess-ci.yml

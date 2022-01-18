@@ -1,0 +1,56 @@
+name: identityaccess-ci
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    - features/ci-builds
+    paths:
+    - src/IdentityAccess/**
+    - .github/workflows/identityaccess-ci.yml
+  
+  pull_request:
+    branches:
+    - main
+    paths:
+    - src/IdentityAccess/**
+    - .github/workflows/identityaccess-ci.yml
+
+env:
+  SERVICE: identityaccess
+  IMAGE: blazorwithkeycloakauth.identityaccess
+
+jobs:
+  BuildLinux:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout Github Action'
+      uses: actions/checkout@main
+
+    - name: Login to Container Registry
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+
+    - name: Set branch name as env variable
+      run: |
+        currentbranch=$(echo ${GITHUB_REF##*/})
+        echo "running on $currentbranch"
+        echo "BRANCH=$currentbranch" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Compose build ${{ env.SERVICE }}
+      run: sudo -E docker-compose build ${{ env.SERVICE }}
+      working-directory: ./src
+      shell: bash
+      env:
+        TAG: ${{ env.BRANCH }}
+
+    - name: Compose push ${{ env.SERVICE }}
+      run: sudo -E docker-compose push ${{ env.SERVICE }}
+      working-directory: ./src
+      shell: bash
+      env:
+        TAG: ${{ env.BRANCH }}

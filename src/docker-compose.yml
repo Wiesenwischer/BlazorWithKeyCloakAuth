@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./IdentityAccess/Dockerfile
-    image: blazorwithkeycloakauth.identityaccess:${PLATFORM:-linux}-${TAG:-latest}
+    image: maddev77/blazorwithkeycloakauth.identityaccess:${PLATFORM:-linux}-${TAG:-latest}
     ports:
       - "8080:8080"
 volumes:

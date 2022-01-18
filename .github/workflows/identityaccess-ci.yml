@@ -8,6 +8,7 @@ on:
     - features/ci-build
     paths:
     - src/IdentityAccess/**
+    - src/IdentityAccess/docker-compose.yml    
     - .github/workflows/identityaccess-ci.yml
   
   pull_request:

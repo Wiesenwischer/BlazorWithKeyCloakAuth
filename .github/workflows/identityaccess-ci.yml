@@ -19,7 +19,7 @@ on:
 
 env:
   SERVICE: identityaccess
-  IMAGE: blazorwithkeycloakauth.identityaccess
+  IMAGE: ${{ secrets.REGISTRY_HOST }}/blazorwithkeycloakauth.identityaccess
 
 jobs:
   BuildLinux:

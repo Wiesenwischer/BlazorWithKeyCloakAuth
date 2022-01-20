@@ -1,4 +1,4 @@
-name: identityaccess-ci
+name: identityaccess
 
 on:
   workflow_dispatch:
